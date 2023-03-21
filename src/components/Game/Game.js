@@ -9,10 +9,7 @@ import GuessInput from '../GuessInput';
 import GuessResults from '../GuessResults';
 import Banner from '../Banner';
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+
 
 function Game() {
   const [guessResults, setGuessResults] = React.useState(
@@ -23,11 +20,17 @@ function Game() {
   const [activeGuessIndex, setActiveGuessIndex] = React.useState(0);
   const [gameStatus, setGameStatus] = React.useState('');
   const [keys, setKeys] = React.useState({ ...KEYS_ON_KEYBOARD });
+  const [answer, setAnswer] = React.useState(() => {
+    return sample(WORDS)
+  });
+
+  // To make debugging easier, we'll log the solution in the console.
+  console.info({ answer });
 
   const handleAddGuess = function (guess) {
     const nextGuessResults = [...guessResults];
     const checkedGuess = checkGuess(guess, answer);
-
+    console.log(answer)
     //nextGuessResults[activeGuessIndex] = [...guess].map((char) => ({ letter: char, status: '' }));
     nextGuessResults[activeGuessIndex] = checkedGuess;
 
@@ -48,15 +51,26 @@ function Game() {
 
     setKeys(nextKeys);
 
-
     setGuessResults(nextGuessResults);
+  }
+
+  const restartGame = function () {
+    setKeys({ ...KEYS_ON_KEYBOARD });
+    setActiveGuessIndex(0);
+    setAnswer(sample(WORDS));
+    setGameStatus('');
+    setGuessResults(
+      range(NUM_OF_GUESSES_ALLOWED).map(
+        () => range(5).map(() => ({ letter: '', status: '' }))
+      )
+    );
   }
 
   const gameEnded = gameStatus !== '';
 
   return <>
     <GuessResults guessResults={guessResults} />
-    {gameEnded && <Banner gameStatus={gameStatus} answer={answer} guessCount={activeGuessIndex} />}
+    {gameEnded && <Banner gameStatus={gameStatus} answer={answer} guessCount={activeGuessIndex} restartGame={restartGame} />}
     <GuessInput keys={keys} disabled={gameEnded} handleAddGuess={handleAddGuess} />
   </>;
 }
