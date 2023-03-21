@@ -2,7 +2,7 @@ import React from "react";
 
 import { KEYS_LAYOUT } from '../../constants';
 
-function Keyboard({ keys, handleKeyDown }) {
+function Keyboard({ keys, handleKeyDown, handleEnter, handleBackspace }) {
 
   let keyRows = [[], [], []],
     rowIndex = 0,
@@ -21,8 +21,12 @@ function Keyboard({ keys, handleKeyDown }) {
       type="button"
       onClick={(event) => {
         event.preventDefault();
-
-        handleKeyDown(letter);
+        if (status === 'enter')
+          handleEnter();
+        else if (status === 'backspace')
+          handleBackspace();
+        else
+          handleKeyDown(letter);
       }}
     >{letter}</button>;
 
@@ -31,13 +35,13 @@ function Keyboard({ keys, handleKeyDown }) {
     keysToPlaceCount--;
   });
 
-  return <>
+  return <div className="keyboard">
     {keyRows.map((row, rowIndex) => {
       return <div key={rowIndex} className="row">{row.map((key) => {
         return key;
       })}</div>
     })}
-  </>;
+  </div>;
 }
 
 export default Keyboard;

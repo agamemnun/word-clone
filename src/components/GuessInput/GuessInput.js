@@ -15,6 +15,15 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
     setGuessInput(guessInput + keyInput)
   }
 
+  const handleBackspace = function () {
+    setGuessInput(guessInput.substring(0, guessInput.length - 1));
+  }
+
+  const handleEnter = function () {
+    handleAddGuess(guessInput);
+    setGuessInput('');
+  }
+
   return (
     <form className="guess-input-wrapper"
       onSubmit={handleSubmit}>
@@ -27,7 +36,7 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
         onChange={(event) => setGuessInput(event.target.value)}
         disabled={disabled}
       />
-      <Keyboard keys={keys} disabled={disabled} handleKeyDown={handleKeyDown} />
+      <Keyboard keys={keys} disabled={disabled} handleKeyDown={handleKeyDown} handleEnter={handleEnter} handleBackspace={handleBackspace} />
     </form>
   );
 }

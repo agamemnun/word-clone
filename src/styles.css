@@ -81,7 +81,7 @@ h1 {
   padding: var(--game-spacing) 32px;
   margin: 0 auto;
   min-width: 250px;
-  max-width: min(500px, 58vh, 100%);
+  max-width: min(700px, 70vh, 100%);
 }
 
 .guess-results {
@@ -243,13 +243,17 @@ h1 {
 
 
 /* Styles for the keyboard */
+.keyboard {
+  padding: 36px 0 72px 0;
+}
+
 .key {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   margin: 2px;
   background-color: var(--color-gray-900);
   color: var(--color-gray-100);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   text-align: center;
   border-radius: 4px;
@@ -272,6 +276,17 @@ h1 {
 .key.misplaced {
   background-color: var(--color-warning);
   color: var(--color-gray-900);
+}
+
+.key.enter {
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 60px;
+}
+
+.key.backspace {
+  width: 60px;
+  font-weight: 800;
 }
 
 .restart {
