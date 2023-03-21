@@ -1,6 +1,7 @@
 import React from "react";
+import Keyboard from '../Keyboard';
 
-function GuessInput({ disabled, handleAddGuess }) {
+function GuessInput({ keys, disabled, handleAddGuess }) {
   const [guessInput, setGuessInput] = React.useState('');
 
   const handleSubmit = function (event) {
@@ -8,6 +9,10 @@ function GuessInput({ disabled, handleAddGuess }) {
 
     handleAddGuess(guessInput);
     setGuessInput('');
+  }
+
+  const handleKeyDown = function (keyInput) {
+    setGuessInput(guessInput + keyInput)
   }
 
   return (
@@ -22,6 +27,7 @@ function GuessInput({ disabled, handleAddGuess }) {
         onChange={(event) => setGuessInput(event.target.value)}
         disabled={disabled}
       />
+      <Keyboard keys={keys} disabled={disabled} handleKeyDown={handleKeyDown} />
     </form>
   );
 }

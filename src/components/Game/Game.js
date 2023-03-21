@@ -3,7 +3,7 @@ import React from 'react';
 import { sample, range } from '../../utils';
 import { WORDS } from '../../data';
 import { checkGuess } from '../../game-helpers';
-import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import { NUM_OF_GUESSES_ALLOWED, KEYS_ON_KEYBOARD } from '../../constants';
 
 import GuessInput from '../GuessInput';
 import GuessResults from '../GuessResults';
@@ -22,7 +22,7 @@ function Game() {
   );
   const [activeGuessIndex, setActiveGuessIndex] = React.useState(0);
   const [gameStatus, setGameStatus] = React.useState('');
-
+  const [keys, setKeys] = React.useState({ ...KEYS_ON_KEYBOARD });
 
   const handleAddGuess = function (guess) {
     const nextGuessResults = [...guessResults];
@@ -40,6 +40,15 @@ function Game() {
       setGameStatus('LOST');
     }
 
+    const nextKeys = { ...keys };
+
+    checkedGuess.forEach(({ letter, status }) => {
+      nextKeys[letter] = status;
+    });
+
+    setKeys(nextKeys);
+
+
     setGuessResults(nextGuessResults);
   }
 
@@ -48,7 +57,7 @@ function Game() {
   return <>
     <GuessResults guessResults={guessResults} />
     {gameEnded && <Banner gameStatus={gameStatus} answer={answer} guessCount={activeGuessIndex} />}
-    <GuessInput disabled={gameEnded} handleAddGuess={handleAddGuess} />
+    <GuessInput keys={keys} disabled={gameEnded} handleAddGuess={handleAddGuess} />
   </>;
 }
 
