@@ -248,12 +248,12 @@ h1 {
 }
 
 .key {
-  width: 40px;
-  height: 40px;
+  width: 6vw;
+  height: 6vw;
   margin: 2px;
   background-color: var(--color-gray-900);
   color: var(--color-gray-100);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
   border-radius: 4px;
@@ -279,14 +279,13 @@ h1 {
 }
 
 .key.enter {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  width: 60px;
+  width: 8vw;
 }
 
 .key.backspace {
-  width: 60px;
-  font-weight: 800;
+  width: 8vw;
 }
 
 .restart {
