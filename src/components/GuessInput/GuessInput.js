@@ -12,6 +12,9 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
   }
 
   const handleKeyDown = function (keyInput) {
+    if (disabled)
+      return;
+      
     const nextGuess = guessInput + keyInput;
     if (nextGuess.length > 5)
       return;
