@@ -28,10 +28,12 @@ function Game() {
   console.info({ answer });
 
   const handleAddGuess = function (guess) {
+    if (guess.length !== 5)
+      return;
+
     const nextGuessResults = [...guessResults];
     const checkedGuess = checkGuess(guess, answer);
-    console.log(answer)
-    //nextGuessResults[activeGuessIndex] = [...guess].map((char) => ({ letter: char, status: '' }));
+
     nextGuessResults[activeGuessIndex] = checkedGuess;
 
     const nextActiveGuessIndex = activeGuessIndex + 1;

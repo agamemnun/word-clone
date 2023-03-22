@@ -12,6 +12,10 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
   }
 
   const handleKeyDown = function (keyInput) {
+    const nextGuess = guessInput + keyInput;
+    if (nextGuess.length > 5)
+      return;
+
     setGuessInput(guessInput + keyInput)
   }
 
@@ -20,6 +24,11 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
   }
 
   const handleEnter = function () {
+    if (guessInput.length !== 5) {
+      alert('Guessed word can not be shorther / longer than 5 letters.');
+      return;
+    }
+
     handleAddGuess(guessInput);
     setGuessInput('');
   }
