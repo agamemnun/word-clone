@@ -24,10 +24,8 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
   }
 
   const handleEnter = function () {
-    if (guessInput.length !== 5) {
-      alert('Guessed word can not be shorther / longer than 5 letters.');
+    if (guessInput.length !== 5)
       return;
-    }
 
     handleAddGuess(guessInput);
     setGuessInput('');
@@ -38,11 +36,15 @@ function GuessInput({ keys, disabled, handleAddGuess }) {
       onSubmit={handleSubmit}>
       <label htmlFor="guess-input">Enter guess:</label>
       <input
+        required
         type="text"
         id="guess-input"
-        pattern="[A-Z]{5}"
+        minLength={5}
+        maxLength={5}
+        pattern="[a-zA-Z]{5}"
+        title="5 letter word"
         value={guessInput}
-        onChange={(event) => setGuessInput(event.target.value)}
+        onChange={(event) => setGuessInput(event.target.value.toUpperCase())}
         disabled={disabled}
       />
       <Keyboard keys={keys} disabled={disabled} handleKeyDown={handleKeyDown} handleEnter={handleEnter} handleBackspace={handleBackspace} />
